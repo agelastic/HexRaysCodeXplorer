@@ -51,7 +51,7 @@ void free_vtable_lists() {
 // VTBL code parsing
 //---------------------------------------------------------------------------
 
-const char * get_text_disasm(ea_t ea) {
+const char* get_text_disasm(ea_t ea) {
 	static char disasm_buff[MAXSTR];
 	disasm_buff[0] = disasm_buff[MAXSTR - 1] = 0;
 
