@@ -27,20 +27,24 @@
 
 #pragma once
 
-#ifndef __LINUX__
+#if !defined (__LINUX__) && !defined (__MAC__)
 #pragma warning (disable: 4996 4800 )
 #else
-#pragma GCC diagnostic ignored "-fpermissive"
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #endif
 
-#ifndef __LINUX__
+#if !defined (__LINUX__) && !defined (__MAC__)
 #include <windows.h>
 #include <tchar.h>
 #else
 #include "Linux.h"
 #endif
 
+#ifdef __NT__
+#pragma warning(push)
+#pragma warning(disable:4309 4244 4267)           // disable "truncation of constant value" warning from IDA SDK, conversion from 'ssize_t' to 'int', possible loss of data
+#endif // __NT__
+#define USE_DANGEROUS_FUNCTIONS
 #include <hexrays.hpp>
 #include <ida.hpp>
 #include <idp.hpp>
@@ -59,6 +63,9 @@
 #include <auto.hpp>
 #include <entry.hpp>
 #include <demangle.hpp>
+#ifdef __NT__
+#pragma warning(pop)
+#endif // __NT__
 
 #include <cstring>
 #include <cstdarg>
